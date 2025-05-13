@@ -1,6 +1,6 @@
 package com.example.practice.api_testing.model.dto;
 
-public class StudentDTO {
+public class CreateStudent {
     private String name;
     private Integer age;
     private String gender;

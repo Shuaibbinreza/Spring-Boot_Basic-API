@@ -1,8 +1,7 @@
 package com.example.practice.api_testing.controller;
 
-import com.example.practice.api_testing.model.Project;
 import com.example.practice.api_testing.model.domain.Student;
-import com.example.practice.api_testing.model.dto.StudentDTO;
+import com.example.practice.api_testing.model.dto.CreateStudent;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -25,10 +24,10 @@ public class StudentRestController {
     }
 
     @PostMapping("/api/students-add")
-    public Student StudentAdd(@RequestBody StudentDTO studentDTO) {
-        String name = studentDTO.getName();
-        Integer age = studentDTO.getAge();
-        String gender = studentDTO.getGender();
+    public Student StudentAdd(@RequestBody CreateStudent cs) {
+        String name = cs.getName();
+        Integer age = cs.getAge();
+        String gender = cs.getGender();
         Student student = new Student(name, age, gender);
         students.add(student);
         return student;
