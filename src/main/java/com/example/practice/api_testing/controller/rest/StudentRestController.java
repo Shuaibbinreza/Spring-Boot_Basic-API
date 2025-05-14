@@ -2,17 +2,20 @@ package com.example.practice.api_testing.controller.rest;
 
 import com.example.practice.api_testing.model.domain.Student;
 import com.example.practice.api_testing.model.dto.CreateStudent;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 //Documentation with Swagger
+@Tag(name = "Student API", description = "Add student and see student list")
 @RestController
 @RequestMapping("/api")
 public class StudentRestController {
     List<Student> students = new ArrayList<>();
 
+    @Tag(name = "Get all students", description = "Get all students")
     @GetMapping("students")
     public List<Student> getStudents() {
         return students;
@@ -25,6 +28,7 @@ public class StudentRestController {
 //        return student;
 //    }
 
+    @Tag(name = "Add Student", description = "Add a student to students list")
     @PostMapping("students-add")
     public Student StudentAdd(@RequestBody CreateStudent cs) {
         String name = cs.getName();
