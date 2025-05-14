@@ -1,4 +1,4 @@
-package com.example.practice.api_testing.controller;
+package com.example.practice.api_testing.controller.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
