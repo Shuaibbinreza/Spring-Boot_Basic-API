@@ -1,6 +1,7 @@
 package com.example.practice.api_testing.persistence.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -9,6 +10,7 @@ import jakarta.persistence.Table;
 public class StudentEntity {
 
     @Id
+    @GeneratedValue
     private Long id;
     private String name;
     private int age;

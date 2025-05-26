@@ -1,4 +1,4 @@
-package com.example.practice.api_testing.model;
+package com.example.practice.api_testing.model.domain;
 
 public class Project {
     private final String name; // required

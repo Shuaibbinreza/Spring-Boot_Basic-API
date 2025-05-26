@@ -4,6 +4,7 @@ import com.example.practice.api_testing.model.domain.Student;
 import com.example.practice.api_testing.model.dto.CreateStudent;
 import com.example.practice.api_testing.service.StudentService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -14,7 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class StudentRestController {
-    StudentService studentService = new StudentService();
+    @Autowired
+    StudentService studentService;
 //    @Tag(name = "Get all students", description = "Get all students")
     @GetMapping("students")
     public List<Student> getStudents() {
