@@ -36,4 +36,9 @@ public class StudentRestController {
     public Student StudentAdd(@RequestBody CreateStudent cs) {
         return studentService.StudentAdd(cs);
     }
+
+    @GetMapping("{id}")
+    public Student getStudentById(@PathVariable Long id) {
+        return studentService.getStudentById(id);
+    }
 }

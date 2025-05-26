@@ -1,5 +1,6 @@
 package com.example.practice.api_testing.service;
 
+import com.example.practice.api_testing.model.domain.Project;
 import com.example.practice.api_testing.model.domain.Student;
 import com.example.practice.api_testing.model.dto.CreateStudent;
 import com.example.practice.api_testing.persistence.entity.StudentEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -42,5 +44,16 @@ public class StudentService {
         StudentEntity saved = studentRepository.save(entity);
 
         return new Student(saved.getId(), saved.getName(), saved.getAge(), saved.getGender());
+    }
+
+    public Student getStudentById(Long id){
+        Optional<StudentEntity> studentEntity = studentRepository.findById(id);
+
+        if(studentEntity.isEmpty()){
+            throw new RuntimeException("Student not found");
+        }
+
+        Student student = new Student(studentEntity.get().getId(), studentEntity.get().getName(), studentEntity.get().getAge(), studentEntity.get().getGender());
+        return student;
     }
 }
