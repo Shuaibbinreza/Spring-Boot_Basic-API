@@ -1,10 +1,12 @@
 package com.example.practice.api_testing.controller.rest;
 
+import com.example.practice.api_testing.exception.NotFoundException;
 import com.example.practice.api_testing.model.domain.Student;
 import com.example.practice.api_testing.model.dto.CreateStudent;
 import com.example.practice.api_testing.service.StudentService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -38,7 +40,16 @@ public class StudentRestController {
     }
 
     @GetMapping("{id}")
-    public Student getStudentById(@PathVariable Long id) {
-        return studentService.getStudentById(id);
+    public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
+        Student student;
+
+        try{
+            student = studentService.getStudentById(id);
+        } catch (NotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+        return ResponseEntity.ok(student);
     }
 }

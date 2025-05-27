@@ -1,5 +1,6 @@
 package com.example.practice.api_testing.service;
 
+import com.example.practice.api_testing.exception.NotFoundException;
 import com.example.practice.api_testing.model.domain.Project;
 import com.example.practice.api_testing.model.domain.Student;
 import com.example.practice.api_testing.model.dto.CreateStudent;
@@ -46,11 +47,11 @@ public class StudentService {
         return new Student(saved.getId(), saved.getName(), saved.getAge(), saved.getGender());
     }
 
-    public Student getStudentById(Long id){
+    public Student getStudentById(Long id) throws NotFoundException {
         Optional<StudentEntity> studentEntity = studentRepository.findById(id);
 
         if(studentEntity.isEmpty()){
-            throw new RuntimeException("Student not found");
+            throw new NotFoundException("Student not found");
         }
 
         Student student = new Student(studentEntity.get().getId(), studentEntity.get().getName(), studentEntity.get().getAge(), studentEntity.get().getGender());
