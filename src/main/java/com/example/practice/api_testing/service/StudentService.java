@@ -1,16 +1,14 @@
 package com.example.practice.api_testing.service;
 
 import com.example.practice.api_testing.exception.NotFoundException;
-import com.example.practice.api_testing.model.domain.Project;
 import com.example.practice.api_testing.model.domain.Student;
 import com.example.practice.api_testing.model.dto.CreateStudent;
+import com.example.practice.api_testing.model.dto.UpdateStudentRequest;
 import com.example.practice.api_testing.persistence.entity.StudentEntity;
 import com.example.practice.api_testing.persistence.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,5 +54,31 @@ public class StudentService {
 
         Student student = new Student(studentEntity.get().getId(), studentEntity.get().getName(), studentEntity.get().getAge(), studentEntity.get().getGender());
         return student;
+    }
+
+    public void updateStudent(Long id, UpdateStudentRequest updateStudentRequest) throws NotFoundException {
+        String gender = updateStudentRequest.getGender();
+        Integer age = updateStudentRequest.getAge();
+
+        Optional<StudentEntity> studentEntity = studentRepository.findById(id);
+        if(studentEntity.isEmpty()){
+            throw new NotFoundException("Student Not Found");
+        }
+
+        StudentEntity entity = studentEntity.get();
+        entity.setAge(age);
+        entity.setGender(gender);
+
+        studentRepository.save(entity);
+    }
+
+    public void deleteStudent(Long id) throws NotFoundException {
+        Optional<StudentEntity> studentEntity = studentRepository.findById(id);
+        if(studentEntity.isEmpty()){
+            throw new NotFoundException("Student Not Found");
+        }
+        StudentEntity studentEntity1 = studentEntity.get();
+        studentRepository.deleteById(studentEntity1.getId());
+//        studentRepository.deleteById(id);
     }
 }
