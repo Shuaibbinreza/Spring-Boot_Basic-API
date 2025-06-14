@@ -3,7 +3,6 @@ package com.example.practice.api_testing.service;
 import com.example.practice.api_testing.exception.custom.NotFoundException;
 import com.example.practice.api_testing.model.domain.Student;
 import com.example.practice.api_testing.model.dto.CreateStudent;
-import com.example.practice.api_testing.model.dto.CreateStudentRecord;
 import com.example.practice.api_testing.model.dto.UpdateStudentRequest;
 import com.example.practice.api_testing.persistence.entity.StudentEntity;
 import com.example.practice.api_testing.persistence.repository.StudentRepository;
@@ -31,7 +30,7 @@ public class StudentService {
         }).toList();
     }
 
-    public Student StudentAdd(CreateStudentRecord cs) {
+    public Student StudentAdd(CreateStudent cs) {
         String name = cs.name();
         Integer age = cs.age();
         String gender = cs.gender();
@@ -40,7 +39,6 @@ public class StudentService {
         entity.setName(name);
         entity.setAge(age);
         entity.setGender(gender);
-//        entity.setId(1L);
         StudentEntity saved = studentRepository.save(entity);
 
         return new Student(saved.getId(), saved.getName(), saved.getAge(), saved.getGender());
@@ -58,8 +56,8 @@ public class StudentService {
     }
 
     public void updateStudent(Long id, UpdateStudentRequest updateStudentRequest) throws NotFoundException {
-        String gender = updateStudentRequest.getGender();
-        Integer age = updateStudentRequest.getAge();
+        String name = updateStudentRequest.name();
+        Integer age = updateStudentRequest.age();
 
         Optional<StudentEntity> studentEntity = studentRepository.findById(id);
         if(studentEntity.isEmpty()){
@@ -68,8 +66,7 @@ public class StudentService {
 
         StudentEntity entity = studentEntity.get();
         entity.setAge(age);
-        entity.setGender(gender);
-
+        entity.setName(name);
         studentRepository.save(entity);
     }
 
@@ -80,6 +77,5 @@ public class StudentService {
         }
         StudentEntity studentEntity1 = studentEntity.get();
         studentRepository.deleteById(studentEntity1.getId());
-//        studentRepository.deleteById(id);
     }
 }
