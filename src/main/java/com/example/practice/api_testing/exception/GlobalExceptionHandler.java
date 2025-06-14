@@ -2,6 +2,7 @@ package com.example.practice.api_testing.exception;
 
 import java.net.URI;
 
+import com.example.practice.api_testing.exception.custom.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

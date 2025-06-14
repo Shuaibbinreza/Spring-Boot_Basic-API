@@ -1,6 +1,6 @@
 package com.example.practice.api_testing.controller.rest;
 
-import com.example.practice.api_testing.exception.NotFoundException;
+import com.example.practice.api_testing.exception.custom.NotFoundException;
 import com.example.practice.api_testing.model.domain.Student;
 import com.example.practice.api_testing.model.dto.CreateStudent;
 import com.example.practice.api_testing.model.dto.UpdateStudentRequest;
