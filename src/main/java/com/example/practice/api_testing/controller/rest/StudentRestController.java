@@ -7,12 +7,10 @@ import com.example.practice.api_testing.model.dto.UpdateStudentRequest;
 import com.example.practice.api_testing.service.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 //Documentation with Swagger
@@ -37,44 +35,20 @@ public class StudentRestController {
 
     @Operation(summary = "Get single student by id")
     @GetMapping("{id}")
-    public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
-        Student student;
-
-        try{
-            student = studentService.getStudentById(id);
-        } catch (NotFoundException e) {
-            return ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
+    public ResponseEntity<Student> getStudentById(@PathVariable Long id) throws NotFoundException {
+        Student student = studentService.getStudentById(id);
         return ResponseEntity.ok(student);
     }
 
     @Operation(summary = "Update a student by id")
     @PutMapping("{id}")
-    public void updateStudent(@PathVariable Long id, @RequestBody UpdateStudentRequest updateStudentRequest) {
-        Student student;
-
-        try{
-            studentService.updateStudent(id, updateStudentRequest);
-        } catch (NotFoundException e) {
-            ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            ResponseEntity.internalServerError().build();
-        }
+    public void updateStudent(@PathVariable Long id, @RequestBody UpdateStudentRequest updateStudentRequest) throws NotFoundException {
+        studentService.updateStudent(id, updateStudentRequest);
     }
 
     @Operation(summary = "Delete a student by id")
     @DeleteMapping("{id}")
-    public void deleteStudent(@PathVariable Long id) {
-        Student student;
-
-        try{
-            studentService.deleteStudent(id);
-        } catch (NotFoundException e) {
-            ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            ResponseEntity.internalServerError().build();
-        }
+    public void deleteStudent(@PathVariable Long id) throws NotFoundException {
+        studentService.deleteStudent(id);
     }
 }
