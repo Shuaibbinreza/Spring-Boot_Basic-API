@@ -3,21 +3,20 @@ package com.example.practice.api_testing.exception;
 import java.net.URI;
 
 import com.example.practice.api_testing.exception.custom.NotFoundException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    private static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
     // Checking the global exception class
     @ExceptionHandler(NotFoundException.class)
     public ProblemDetail handleNotFoundException(NotFoundException e){
-        logger.error("Resource not found: {}", e.getMessage());
+        log.error("Resource not found: {}", e.getMessage());
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
         problemDetail.setTitle("Resource Not FOund");
         problemDetail.setType(URI.create("https://example.com/not-found"));
@@ -27,13 +26,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ProblemDetail handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
-        logger.error("Invalid Input Type: {}", e.getMessage());
+        log.error("Invalid Input Type: {}", e.getMessage());
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Invalid Input Type");
     }
 
     @ExceptionHandler(Exception.class)
     public ProblemDetail handleGenericException(Exception e){
-        logger.error("Generic Exception: ", e);
+        log.error("Generic Exception: ", e);
         return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, "Something Went wrong in server side");
     }
 }
