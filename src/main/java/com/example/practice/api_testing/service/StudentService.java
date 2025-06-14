@@ -3,6 +3,7 @@ package com.example.practice.api_testing.service;
 import com.example.practice.api_testing.exception.custom.NotFoundException;
 import com.example.practice.api_testing.model.domain.Student;
 import com.example.practice.api_testing.model.dto.CreateStudent;
+import com.example.practice.api_testing.model.dto.CreateStudentRecord;
 import com.example.practice.api_testing.model.dto.UpdateStudentRequest;
 import com.example.practice.api_testing.persistence.entity.StudentEntity;
 import com.example.practice.api_testing.persistence.repository.StudentRepository;
@@ -30,10 +31,10 @@ public class StudentService {
         }).toList();
     }
 
-    public Student StudentAdd(CreateStudent cs) {
-        String name = cs.getName();
-        Integer age = cs.getAge();
-        String gender = cs.getGender();
+    public Student StudentAdd(CreateStudentRecord cs) {
+        String name = cs.name();
+        Integer age = cs.age();
+        String gender = cs.gender();
 
         StudentEntity entity = new StudentEntity();
         entity.setName(name);

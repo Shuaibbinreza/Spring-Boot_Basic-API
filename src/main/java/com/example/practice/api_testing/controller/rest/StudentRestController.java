@@ -3,6 +3,7 @@ package com.example.practice.api_testing.controller.rest;
 import com.example.practice.api_testing.exception.custom.NotFoundException;
 import com.example.practice.api_testing.model.domain.Student;
 import com.example.practice.api_testing.model.dto.CreateStudent;
+import com.example.practice.api_testing.model.dto.CreateStudentRecord;
 import com.example.practice.api_testing.model.dto.UpdateStudentRequest;
 import com.example.practice.api_testing.service.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,7 +30,7 @@ public class StudentRestController {
 
     @Operation(summary = "Add new student")
     @PostMapping("students-add")
-    public Student StudentAdd(@RequestBody CreateStudent cs) {
+    public Student StudentAdd(@RequestBody CreateStudentRecord cs) {
         return studentService.StudentAdd(cs);
     }
 
