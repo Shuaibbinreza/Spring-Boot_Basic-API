@@ -7,7 +7,9 @@ import com.example.practice.api_testing.model.dto.UpdateStudentRequest;
 import com.example.practice.api_testing.service.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +25,8 @@ public class StudentRestController {
 
     @Operation(summary = "Get all the students")
     @GetMapping("students")
-    public List<Student> getStudents() {
-        return studentService.getStudents();
+    public List<Student> getStudents(@ParameterObject Pageable pageable) {
+        return studentService.getStudents(pageable);
     }
 
     @Operation(summary = "Add new student")

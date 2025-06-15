@@ -7,6 +7,7 @@ import com.example.practice.api_testing.model.dto.UpdateStudentRequest;
 import com.example.practice.api_testing.persistence.entity.StudentEntity;
 import com.example.practice.api_testing.persistence.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +18,8 @@ public class StudentService {
     @Autowired
     StudentRepository studentRepository;
 
-    public List<Student> getStudents() {
-        List<StudentEntity> studentEntities = studentRepository.findAll();
+    public List<Student> getStudents(Pageable pageble) {
+        List<StudentEntity> studentEntities = studentRepository.findAll(pageble).getContent();
 
         return studentEntities.stream().map(studentEntity -> {
             Long id = studentEntity.getId();

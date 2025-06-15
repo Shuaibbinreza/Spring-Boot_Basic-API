@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +39,7 @@ public class RootController {
         model.addAttribute("education", resumeConfig.getEducation());
         model.addAttribute("experience", resumeConfig.getExperience());
         model.addAttribute("skills", resumeConfig.getSkills());
-        model.addAttribute("students", studentService.getStudents());
+        model.addAttribute("students", studentService.getStudents(Pageable.unpaged()));
         log.debug("Model data setup done");
         return "index";
     }
