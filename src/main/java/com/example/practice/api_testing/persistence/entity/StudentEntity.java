@@ -7,9 +7,9 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
 @Table(name = "student")
 @Entity
-@Getter
 public class StudentEntity {
 
     @Id
